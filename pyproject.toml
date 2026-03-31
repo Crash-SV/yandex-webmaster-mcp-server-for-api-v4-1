@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=45"]
+build-backend = "setuptools.backends._legacy:_Backend"
+
+[project]
+name = "yandex-webmaster-mcp-server"
+version = "1.0.0"
+description = "MCP server for Yandex Webmaster API v4.1"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+dependencies = [
+    "fastmcp>=2.0.0",
+    "httpx>=0.28.0",
+]
+
+[project.scripts]
+yandex-webmaster-mcp = "yandex_webmaster_mcp.server:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
