@@ -5,10 +5,7 @@ import os
 from fastmcp import FastMCP
 from yandex_webmaster_mcp.client import WebmasterClient, WebmasterAPIError
 
-mcp = FastMCP(
-    "Yandex Webmaster",
-    description="MCP server for Yandex Webmaster API v4.1 — indexing, search queries, diagnostics, recrawl, sitemaps, links, and more.",
-)
+mcp = FastMCP("Yandex Webmaster")
 
 _client: WebmasterClient | None = None
 

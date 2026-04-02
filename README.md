@@ -1,49 +1,49 @@
-# Yandex Webmaster MCP Server
+# Яндекс Вебмастер MCP-сервер
 
-MCP server for Yandex Webmaster API v4.1 — full coverage of indexing, search queries, diagnostics, recrawl, sitemaps, links, and important URLs monitoring.
+MCP-сервер для Яндекс Вебмастер API v4.1 — полное покрытие: индексация, поисковые запросы, диагностика, переобход, карты сайта, ссылки, мониторинг важных URL.
 
-## Features
+## Возможности
 
-37 tools covering the complete Yandex Webmaster API:
+37 инструментов, покрывающих весь Яндекс Вебмастер API:
 
-- **User & Hosts** — list sites, add/remove hosts, get host info
-- **Verification** — check verification status, start verification, list owners
-- **Summary & SQI** — site summary with quality index, SQI history over time
-- **Search Queries** — popular queries (TOP-3000), query history with positions/clicks/shows, single query history, advanced query analytics
-- **Recrawl** — check quota, submit URLs for reindexing, track recrawl tasks
-- **Diagnostics** — site problems and recommendations
-- **Indexing** — indexing history by HTTP status, indexed page samples
-- **Important URLs** — monitoring of critical pages, change tracking
-- **Search URLs** — pages in search (history + samples), appearance/disappearance events
-- **Sitemaps** — auto-detected and user-added sitemaps management
-- **Links** — external backlinks, broken internal links
+- **Пользователь и сайты** — список сайтов, добавление/удаление, информация о сайте
+- **Верификация** — статус подтверждения, запуск подтверждения, список владельцев
+- **Сводка и ИКС** — общая информация по сайту с индексом качества, история ИКС
+- **Поисковые запросы** — популярные запросы (ТОП-3000), история запросов с позициями/кликами/показами, аналитика запросов
+- **Переобход** — квота на переобход, отправка URL на переиндексацию, отслеживание задач
+- **Диагностика** — проблемы сайта и рекомендации
+- **Индексация** — история индексации по HTTP-статусам, примеры проиндексированных страниц
+- **Важные URL** — мониторинг критичных страниц, отслеживание изменений
+- **Страницы в поиске** — страницы в выдаче (история + примеры), события появления/исчезновения
+- **Карты сайта** — автоматически обнаруженные и добавленные вручную карты сайта
+- **Ссылки** — внешние обратные ссылки, битые внутренние ссылки
 
-## Installation
+## Установка
 
 ```bash
 pip install -e .
 ```
 
-## Configuration
+## Настройка
 
-### Environment variable
+### Переменная окружения
 
 ```bash
-export YANDEX_WEBMASTER_API_KEY=your_oauth_token
+export YANDEX_WEBMASTER_API_KEY=ваш_oauth_токен
 ```
 
 ### Claude Desktop
 
-Add to your `claude_desktop_config.json`:
+Добавьте в `claude_desktop_config.json`:
 
 ```json
 {
   "mcpServers": {
     "yandex-webmaster": {
       "command": "python",
-      "args": ["/path/to/yandex-webmaster-mcp-server-python/src/yandex_webmaster_mcp/server.py"],
+      "args": ["/путь/к/yandex-webmaster-mcp-server-python/src/yandex_webmaster_mcp/server.py"],
       "env": {
-        "YANDEX_WEBMASTER_API_KEY": "your_oauth_token"
+        "YANDEX_WEBMASTER_API_KEY": "ваш_oauth_токен"
       }
     }
   }
@@ -52,39 +52,39 @@ Add to your `claude_desktop_config.json`:
 
 ### Claude Code
 
-Add to your `settings.json`:
+Добавьте в `settings.json`:
 
 ```json
 {
   "mcpServers": {
     "yandex-webmaster": {
       "command": "python",
-      "args": ["/path/to/yandex-webmaster-mcp-server-python/src/yandex_webmaster_mcp/server.py"],
+      "args": ["/путь/к/yandex-webmaster-mcp-server-python/src/yandex_webmaster_mcp/server.py"],
       "env": {
-        "YANDEX_WEBMASTER_API_KEY": "your_oauth_token"
+        "YANDEX_WEBMASTER_API_KEY": "ваш_oauth_токен"
       }
     }
   }
 }
 ```
 
-## Getting an OAuth Token
+## Получение OAuth-токена
 
-1. Create an app at https://oauth.yandex.ru/client/new
-2. Select scopes: `webmaster:hostinfo` and `webmaster:verify`
-3. Get token at: `https://oauth.yandex.ru/authorize?response_type=token&client_id=YOUR_CLIENT_ID`
-4. Token is valid for 6 months
+1. Создайте приложение на https://oauth.yandex.ru/client/new
+2. Выберите права: `webmaster:hostinfo` и `webmaster:verify`
+3. Получите токен: `https://oauth.yandex.ru/authorize?response_type=token&client_id=ВАШ_CLIENT_ID`
+4. Токен действует 6 месяцев
 
-## Usage Examples
+## Примеры использования
 
 ```
-# Get your user ID
+# Получить user_id
 get_user_id()
 
-# List all sites
+# Список всех сайтов
 get_hosts(user_id="12345")
 
-# Get popular search queries with positions
+# Популярные запросы с позициями
 get_popular_queries(
     user_id="12345",
     host_id="https:example.com:443",
@@ -93,28 +93,28 @@ get_popular_queries(
     query_indicator="TOTAL_SHOWS,TOTAL_CLICKS,AVG_SHOW_POSITION"
 )
 
-# Submit a page for recrawl
+# Отправить страницу на переобход
 request_recrawl(
     user_id="12345",
     host_id="https:example.com:443",
     url="https://example.com/updated-page/"
 )
 
-# Get important pages monitoring
+# Мониторинг важных страниц
 get_important_urls(
     user_id="12345",
     host_id="https:example.com:443"
 )
 ```
 
-## host_id Format
+## Формат host_id
 
-Yandex Webmaster uses a special format for host IDs:
-- `https:example.com:443` (not a URL — protocol:domain:port without slashes)
+Яндекс Вебмастер использует особый формат идентификаторов сайтов:
+- `https:example.com:443` (не URL — протокол:домен:порт без слешей)
 - `http:example.com:80`
 
-The server automatically URL-encodes host_id in API requests.
+Сервер автоматически URL-кодирует host_id при отправке запросов к API.
 
-## License
+## Лицензия
 
 MIT
